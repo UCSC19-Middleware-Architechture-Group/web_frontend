@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Sri Tel Ltd</title>
+    <link rel="stylesheet" href="css/style2.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="login_page.html" class="logout">Logout</a>
+        </nav>
+    </header>
+
+    <main>
+        <section class="dashboard-layout">
+            <div class="left-section">
+                <div class="services-section service-box">
+                    <h2>Services</h2>
+                    <div id="services" class="inner-box">
+                        <!-- Services will be loaded here -->
+                    </div>
+                </div>
+                <div class="recent-bills-section bills-box">
+                    <h2>Recent Bills</h2>
+                    <div id="bills" class="inner-box">
+                        <!-- Bills will be loaded here -->
+                    </div>
+                </div>
+            </div>
+            <div class="notifications-section">
+                <div class="notifications-box">
+                    <h2>Notifications</h2>
+                    <div id="notifications" class="inner-box">
+                        <!-- Notifications will be loaded here -->
+                    </div>
+                </div>
+                <div class="profile-section">
+                    <h2>Profile Management</h2>
+                    <div class="profile-info">
+                        <label for="name">Name:</label>
+                        <input type="text" id="name" value="John Doe">
+                        <label for="email">Email:</label>
+                        <input type="email" id="email" value="john.doe@example.com">
+                        <label for="phone">Phone:</label>
+                        <input type="text" id="phone" value="123-456-7890">
+                        <button id="saveProfile">Save Changes</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Sri Tel Ltd.</p>
+    </footer>
+
+    <script>
+        // Load notifications
+        const notifications = [
+            {
+                title: 'New Service Available',
+                description: 'You have a new service available for activation.',
+                timestamp: '2024-09-20 10:00 AM',
+            },
+            {
+                title: 'Payment Reminder',
+                description: 'Your payment for the last bill is due soon.',
+                timestamp: '2024-09-19 09:30 AM',
+            },
+            {
+                title: 'System Maintenance',
+                description: 'Scheduled maintenance will occur on 2024-09-25.',
+                timestamp: '2024-09-18 03:00 PM',
+            },
+        ];
+
+        const notificationsContainer = document.getElementById('notifications');
+        notifications.forEach(notification => {
+            notificationsContainer.innerHTML += `
+                <div class="notification-card">
+                    <h3>${notification.title}</h3>
+                    <p>${notification.description}</p>
+                    <small>${notification.timestamp}</small>
+                </div>
+            `;
+        });
+
+        // Load services
+        const currentPackage = {
+            name: 'Basic Plan',
+            dataLimit: '10 GB',
+            callLimit: '100 minutes',
+            smsLimit: '50',
+        };
+
+        const availablePackages = [
+            {
+                name: 'Basic Plan',
+                dataLimit: '10 GB',
+                callLimit: '100 minutes',
+                smsLimit: '50',
+            },
+            {
+                name: 'Standard Plan',
+                dataLimit: '20 GB',
+                callLimit: '200 minutes',
+                smsLimit: '100',
+            },
+            {
+                name: 'Premium Plan',
+                dataLimit: '50 GB',
+                callLimit: 'Unlimited',
+                smsLimit: 'Unlimited',
+            },
+        ];
+
+        const servicesContainer = document.getElementById('services');
+        servicesContainer.innerHTML += `
+            <h3>Current Package</h3>
+            <div class="service-card">
+                <p>Name: ${currentPackage.name}</p>
+                <p>Data Limit: ${currentPackage.dataLimit}</p>
+                <p>Call Limit: ${currentPackage.callLimit}</p>
+                <p>SMS Limit: ${currentPackage.smsLimit}</p>
+                <button class="change-package-btn">Change Package</button>
+            </div>
+            <h3>Available Packages</h3>
+            <div class="available-packages">
+        `;
+        availablePackages.forEach(package => {
+            servicesContainer.innerHTML += `
+                <div class="package-card">
+                    <h4>${package.name}</h4>
+                    <p>Data: ${package.dataLimit}, Calls: ${package.callLimit}, SMS: ${package.smsLimit}</p>
+                    <button class="activate-btn">Activate</button>
+                </div>
+            `;
+        });
+        servicesContainer.innerHTML += `</div>`; // Close available packages div
+
+        // Load recent bills
+        const bills = [
+            {
+                amount: '$150.00',
+                dueDate: '2024-09-15',
+                status: 'Paid',
+            },
+            {
+                amount: '$75.00',
+                dueDate: '2024-08-15',
+                status: 'Paid',
+            },
+            {
+                amount: '$120.00',
+                dueDate: '2024-07-15',
+                status: 'Paid',
+            },
+        ];
+
+        const currentUsage = {
+            dataUsed: '5 GB',
+            callsUsed: '30 minutes',
+            smsUsed: '10',
+        };
+
+        const billsContainer = document.getElementById('bills');
+        billsContainer.innerHTML += `
+            <h3>Billed Amount</h3>
+            <div class="bill-card">
+                <p>Amount: ${bills[0].amount}</p>
+                <p>Due Date: ${bills[0].dueDate}</p>
+                <p>Status: ${bills[0].status}</p>
+                <button class="pay-now-btn">Pay Now</button>
+            </div>
+            <h3>Previous Bills</h3>
+            <div class="previous-bills">
+        `;
+        bills.slice(1).forEach(bill => {
+            billsContainer.innerHTML += `
+                <div class="bill-card">
+                    <p>Amount: ${bill.amount}</p>
+                    <p>Due Date: ${bill.dueDate}</p>
+                    <p>Status: ${bill.status}</p>
+                </div>
+            `;
+        });
+        billsContainer.innerHTML += `</div>`; // Close previous bills div
+
+        // Current Usage
+        billsContainer.innerHTML += `
+            <h3>Current Usage</h3>
+            <div class="bill-card">
+                <p>Data Used: ${currentUsage.dataUsed}</p>
+                <p>Calls Used: ${currentUsage.callsUsed}</p>
+                <p>SMS Used: ${currentUsage.smsUsed}</p>
+            </div>
+        `;
+
+        // Save profile changes
+        document.getElementById('saveProfile').addEventListener('click', () => {
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const phone = document.getElementById('phone').value;
+            // Here you would typically send the data to the server
+            alert('Profile updated:\nName: ' + name + '\nEmail: ' + email + '\nPhone: ' + phone);
+        });
+    </script>
+</body>
+</html>
